@@ -1,0 +1,45 @@
+/* Style pour le conteneur du formulaire */
+.form-container {
+    width: 400px;
+    margin: 0 auto;
+}
+
+/* Style pour les champs de saisie */
+.input-field {
+    margin-bottom: 15px;
+}
+
+.input-field input[type="text"],
+.input-field input[type="email"],
+.input-field input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Style pour le bouton de soumission */
+.submit-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #45a049;
+}
+
+/* Style pour les messages d'erreur */
+.error-msg {
+    color: red;
+    margin-top: 5px;
+}
+
+/* Style pour les messages de succès */
+.success-msg {
+    color: green;
+    margin-top: 5px;
+}
