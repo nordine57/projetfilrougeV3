@@ -11,7 +11,7 @@ public class Voiture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long idVoiture;
+    protected Long id;
     @Column(nullable = false, length = 100)
     protected String PlaqueVoiture;
     @Column(nullable = false, length = 100)

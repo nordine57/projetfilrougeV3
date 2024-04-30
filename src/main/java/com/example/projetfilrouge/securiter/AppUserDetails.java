@@ -27,11 +27,7 @@ public class AppUserDetails implements UserDetails {
 //        return List.of(new SimpleGrantedAuthority(utilisateur.isAdministrateur() ? "ROLE_ADMIN" : "ROLE_USER"));
 //
 //
-        if(utilisateur.isAdministrateur()) {
-            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        }
-
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return List.of(new SimpleGrantedAuthority(utilisateur.getRole().getNom()));
     }
 
     @Override

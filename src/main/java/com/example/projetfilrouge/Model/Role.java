@@ -18,4 +18,9 @@ public class Role {
 
     protected String nom;
 
+
+    public Role() {
+        this.id = 2;
+
+    }
 }

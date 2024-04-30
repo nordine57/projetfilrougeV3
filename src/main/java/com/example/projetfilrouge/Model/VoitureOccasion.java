@@ -14,15 +14,17 @@ public class VoitureOccasion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long idVoitureOccasion;
+    protected Long id;
     @Column(nullable = false, length = 100)
     protected String nomVoitureOccasion;
     @Column(nullable = false, length = 100)
-    protected String prixVoitureOccasion;
+    protected int prixVoitureOccasion;
     @Column(nullable = false, length = 100)
-    protected Date DateArriver;
-    @Column(nullable = false, length = 100)
-    protected String plaqueVoitureOccasion;
+    protected Date dateArriver;
+    @Column(columnDefinition = "TEXT")
+    protected String description;
+    @Column(columnDefinition = "TEXT")
+    private String image;
 
 
 

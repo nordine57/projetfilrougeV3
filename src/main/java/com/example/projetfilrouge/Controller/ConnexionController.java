@@ -1,6 +1,8 @@
 package com.example.projetfilrouge.Controller;
 
+import com.example.projetfilrouge.DAO.RoleDao;
 import com.example.projetfilrouge.DAO.UtilisateurDao;
+import com.example.projetfilrouge.Model.Role;
 import com.example.projetfilrouge.Model.Utilisateur;
 import com.example.projetfilrouge.securiter.AppUserDetails;
 import com.example.projetfilrouge.securiter.JwtUtils;
@@ -26,6 +28,9 @@ public class ConnexionController {
 
     @Autowired
     UtilisateurDao utilisateurDao;
+
+    @Autowired
+    RoleDao roleDao;
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -58,7 +63,18 @@ public class ConnexionController {
     public ResponseEntity<Map<String, Object>> inscription (@RequestBody Utilisateur utilisateur) {
 
         utilisateur.setMotDePasse(bCryptPasswordEncoder.encode(utilisateur.getMotDePasse()));
+        // Créer une instance de Role avec l'identifiant du rôle à attribuer à l'utilisateur
+        Role roleUtilisateur = new Role(); // par exemple, en utilisant l'identifiant du rôle
+        // Rechercher le rôle dans la base de données pour s'assurer qu'il existe
+        Role roleExist = roleDao.findById(roleUtilisateur.getId()).orElse(null);
 
+        if (roleExist == null) {
+            // Gérer le cas où le rôle n'est pas trouvé
+            return new ResponseEntity<>(Map.of("error", "Le rôle n'existe pas."), HttpStatus.BAD_REQUEST);
+        }
+
+        // Assigner le rôle récupéré à l'utilisateur
+        utilisateur.setRole(roleExist);
         utilisateurDao.save(utilisateur);
 
         return new ResponseEntity<>(Map.of("message","utilisateur créé"), HttpStatus.CREATED);

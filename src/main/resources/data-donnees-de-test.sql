@@ -1,14 +1,16 @@
-INSERT INTO role (nom) VALUES ('admin'),('client'),('technicien');
+INSERT INTO role (nom) VALUES ('ROLE_ADMIN'),('ROLE_CLIENT'),('ROLE_TECH');
 
-INSERT INTO utilisateur (nom, prenom, email, mot_de_passe, administrateur, role_id) VALUES
-                                                                                      ('Nom1', 'Prenom1', 'email1@example.com', 'motdepasse1', 0, 1),
-                                                                                      ('Nom2', 'Prenom2', 'email2@example.com', 'motdepasse2', 0, 2),
-                                                                                      ('Nom3', 'Prenom3', 'email3@example.com', 'motdepasse3', 0, 1),
-                                                                                      ('Nom4', 'Prenom4', 'email4@example.com', 'motdepasse4', 0, 2),
-                                                                                      ('Nom5', 'Prenom5', 'email5@example.com', 'motdepasse5', 1, 1),
-                                                                                      ('Nom6', 'Prenom6', 'email6@example.com', 'motdepasse6', 0, 2),
-                                                                                      ('Nom7', 'Prenom7', 'email7@example.com', 'motdepasse7', 0, 1),
-                                                                                      ('Nom8', 'Prenom8', 'email8@example.com', 'motdepasse8', 0, 2),
-                                                                                      ('Nom9', 'Prenom9', 'email9@example.com', 'motdepasse9', 0, 1),
-                                                                                      ('Nom10', 'Prenom10', 'email10@example.com', 'motdepasse10', 0, 2);
+INSERT INTO utilisateur (nom, prenom, email, mot_de_passe, role_id) VALUES
+                                                                                      ('Nom1', 'Prenom1', 'email1@example.com', '$2a$10$82wSHZqkS/yjcZEMl9xrSepPQKoZb9cQUA.QcfBaCgBewuy0Nt4fm',  1),
+                                                                                      ('Nom2', 'Prenom2', 'email2@example.com', '$2a$10$82wSHZqkS/yjcZEMl9xrSepPQKoZb9cQUA.QcfBaCgBewuy0Nt4fm', 2),
+                                                                                      ('Nom3', 'Prenom3', 'email3@example.com', '$2a$10$82wSHZqkS/yjcZEMl9xrSepPQKoZb9cQUA.QcfBaCgBewuy0Nt4fm',  3);
+                                                                                      ;
 
+INSERT INTO `_voiture_occasion` (`prix_voiture_occasion`, `date_arriver`, `nom_voiture_occasion`, `description`, `image`)
+VALUES ('12000', '2024-04-01 10:30:00',  'Renault Clio', 'Description de la Renault Clio', 'chemin/vers/image.jpg');
+INSERT INTO `_voiture_occasion` (`prix_voiture_occasion`, `date_arriver`,`nom_voiture_occasion`, `description`, `image`)
+VALUES ('15000', '2024-04-02 14:45:00', 'Volkswagen Golf', 'Description de la Volkswagen Golf', NULL);
+INSERT INTO `_voiture_occasion` (`prix_voiture_occasion`, `date_arriver`, `nom_voiture_occasion`, `description`, `image`)
+VALUES ('18000', '2024-04-03 09:00:00', 'Toyota Corolla', 'Description de la Toyota Corolla', 'chemin/vers/image.jpg');
+INSERT INTO `_voiture_occasion` (`prix_voiture_occasion`, `date_arriver`, `nom_voiture_occasion`, `description`, `image`)
+VALUES ('20000', '2024-04-04 11:20:00','Ford Focus', NULL, 'chemin/vers/image.jpg');

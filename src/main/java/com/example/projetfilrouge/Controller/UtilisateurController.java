@@ -2,6 +2,7 @@ package com.example.projetfilrouge.Controller;
 
 
 import com.example.projetfilrouge.DAO.UtilisateurDao;
+import com.example.projetfilrouge.Model.Role;
 import com.example.projetfilrouge.Model.Utilisateur;
 import com.example.projetfilrouge.securiter.IsAdmin;
 import com.example.projetfilrouge.securiter.IsUser;

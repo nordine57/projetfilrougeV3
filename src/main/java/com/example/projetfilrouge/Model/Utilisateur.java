@@ -17,19 +17,21 @@ public class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer idUser;
-    @Column(nullable = false, length = 100)
+
     protected String nom;
-    @Column(nullable = false, length = 100)
+
     protected String prenom;
-    @Column(nullable = false, length = 100)
+
+    @JsonView({UtilisateurView.class})
+    @Column( unique = true)
     protected String email;
-    @Column(nullable = false, length = 100)
+
     protected String motDePasse;
 
-    @JsonView(UtilisateurView.class)
-    protected boolean administrateur;
+    //@JsonView(UtilisateurView.class)
+    //protected boolean administrateur;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     protected Role role;
 
 
