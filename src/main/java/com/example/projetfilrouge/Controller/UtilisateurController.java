@@ -27,6 +27,7 @@ public class UtilisateurController {
     @Autowired
     UtilisateurDao utilisateurDao;
 
+
     @GetMapping("/utilisateur/liste")
     @JsonView(UtilisateurView.class)
     public List<Utilisateur> liste() {
@@ -79,20 +80,20 @@ public class UtilisateurController {
 //        return new ResponseEntity<>(nouveauUtilisateur, HttpStatus.CREATED);
 //    }
 //
-//    @PutMapping("/utilisateur/{id}")
-//    public ResponseEntity<Utilisateur> update (@RequestBody Utilisateur utilisateurAmodifier, @PathVariable int id) {
-//        utilisateurAmodifier.setId(id);
-//
-//        Optional<Utilisateur> utilisateurOptional = utilisateurDao.findById(utilisateurAmodifier.getId());
-//
-//        //l'utilisateur tente de modifier un utilisateur qui n'existe pas/plus
-//        if(utilisateurOptional.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
-//
-//        utilisateurDao.save(utilisateurAmodifier);
-//        return new ResponseEntity<>(utilisateurOptional.get(), HttpStatus.OK);
-//    }
+    @PutMapping("/utilisateur/{id}")
+    public ResponseEntity<Utilisateur> update (@RequestBody Utilisateur utilisateurAmodifier, @PathVariable int id) {
+        utilisateurAmodifier.setIdUser(id);
+
+        Optional<Utilisateur> utilisateurOptional = utilisateurDao.findById(utilisateurAmodifier.getIdUser());
+
+        //l'utilisateur tente de modifier un utilisateur qui n'existe pas/plus
+        if(utilisateurOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+       utilisateurDao.save(utilisateurAmodifier);
+        return new ResponseEntity<>(utilisateurOptional.get(), HttpStatus.OK);
+    }
 
     @DeleteMapping("/utilisateur/{id}")
     @JsonView(UtilisateurView.class)

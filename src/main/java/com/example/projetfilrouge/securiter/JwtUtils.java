@@ -16,6 +16,7 @@ public class JwtUtils {
 
         return Jwts.builder()
                 .signWith(SignatureAlgorithm.HS256, "azerty")
+                .addClaims(Map.of("id", appUserDetails.utilisateur.getIdUser()))
                 .addClaims(Map.of("nom", appUserDetails.utilisateur.getNom()))
                 .addClaims(Map.of("prenom", appUserDetails.utilisateur.getPrenom()))
                 .addClaims(Map.of("role", appUserDetails.utilisateur.getRole().getNom()))

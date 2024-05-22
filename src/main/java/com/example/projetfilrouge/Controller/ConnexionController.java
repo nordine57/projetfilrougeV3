@@ -4,6 +4,7 @@ import com.example.projetfilrouge.DAO.RoleDao;
 import com.example.projetfilrouge.DAO.UtilisateurDao;
 import com.example.projetfilrouge.Model.Role;
 import com.example.projetfilrouge.Model.Utilisateur;
+import com.example.projetfilrouge.Service.EmailService;
 import com.example.projetfilrouge.securiter.AppUserDetails;
 import com.example.projetfilrouge.securiter.JwtUtils;
 import com.example.projetfilrouge.view.UtilisateurView;
@@ -20,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.Map;
 
 @RestController
@@ -41,6 +43,9 @@ public class ConnexionController {
     @Autowired
     JwtUtils jwtUtils;
 
+    @Autowired
+    private EmailService emailService;
+
     @PostMapping("/connexion")
     public ResponseEntity<Map<String, Object>> connexion(@RequestBody Utilisateur utilisateur) {
 
@@ -60,7 +65,7 @@ public class ConnexionController {
     }
 
     @PostMapping("/inscription")
-    public ResponseEntity<Map<String, Object>> inscription (@RequestBody Utilisateur utilisateur) {
+    public ResponseEntity<Map<String, Object>> inscription (@RequestBody Utilisateur utilisateur) throws MessagingException {
 
         utilisateur.setMotDePasse(bCryptPasswordEncoder.encode(utilisateur.getMotDePasse()));
         // Créer une instance de Role avec l'identifiant du rôle à attribuer à l'utilisateur
@@ -76,6 +81,8 @@ public class ConnexionController {
         // Assigner le rôle récupéré à l'utilisateur
         utilisateur.setRole(roleExist);
         utilisateurDao.save(utilisateur);
+
+
 
         return new ResponseEntity<>(Map.of("message","utilisateur créé"), HttpStatus.CREATED);
 

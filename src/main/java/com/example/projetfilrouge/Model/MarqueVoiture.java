@@ -15,5 +15,6 @@ public class MarqueVoiture {
     @Column(nullable = false, length = 100)
     protected String nomMarque;
 
+
 }
 

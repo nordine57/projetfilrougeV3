@@ -15,4 +15,7 @@ public class ModeleVoiture {
     @Column(nullable = false, length = 100)
     protected String nomModele;
 
+    @ManyToOne
+    protected MarqueVoiture marqueVoiture;
+
 }
