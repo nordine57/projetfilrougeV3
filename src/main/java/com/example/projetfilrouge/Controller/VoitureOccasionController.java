@@ -1,8 +1,10 @@
 package com.example.projetfilrouge.Controller;
 
 
+import com.example.projetfilrouge.DAO.GarageDAO;
 import com.example.projetfilrouge.DAO.UtilisateurDao;
 import com.example.projetfilrouge.DAO.VoitureOccasionDao;
+import com.example.projetfilrouge.Model.Garage;
 import com.example.projetfilrouge.Model.Role;
 import com.example.projetfilrouge.Model.Utilisateur;
 import com.example.projetfilrouge.Model.VoitureOccasion;
@@ -38,6 +40,9 @@ public class VoitureOccasionController {
     @Autowired
     UtilisateurDao utilisateurDao;
 
+    @Autowired
+    GarageDAO garageDao;
+
     List<List> myList = new ArrayList();
 
 
@@ -52,6 +57,17 @@ public class VoitureOccasionController {
     @PostMapping("/voitureoccasion")
     public ResponseEntity<Map<String, Object>> inscription (@RequestBody VoitureOccasion nouveauVoitureOccasion) throws MessagingException {
 
+        Garage garage = new Garage(); // par exemple, en utilisant l'identifiant du garage
+        // Rechercher le garage dans la base de données pour s'assurer qu'il existe
+        Garage GarageExist = garageDao.findById(garage.getIdGarage()).orElse(null);
+
+        if (GarageExist == null) {
+            // Gérer le cas où le garage n'est pas trouvé
+            return new ResponseEntity<>(Map.of("error", "Le garage n'existe pas."), HttpStatus.BAD_REQUEST);
+        }
+
+        // Assigner le garage récupéré à l'utilisateur
+        nouveauVoitureOccasion.setGarage(GarageExist);
 
         voitureOccasionDao.save(nouveauVoitureOccasion);
         try {

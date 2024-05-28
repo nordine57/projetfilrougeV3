@@ -2,6 +2,7 @@ package com.example.projetfilrouge.securiter;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,8 @@ import java.util.Map;
 
 @Service
 public class JwtUtils {
+    @Value("secret.jwt")
+    public String secret;
 
     public String generateToken(UserDetails userDetails) {
 

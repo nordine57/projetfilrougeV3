@@ -1,7 +1,9 @@
 package com.example.projetfilrouge.Controller;
 
+import com.example.projetfilrouge.DAO.GarageDAO;
 import com.example.projetfilrouge.DAO.RoleDao;
 import com.example.projetfilrouge.DAO.UtilisateurDao;
+import com.example.projetfilrouge.Model.Garage;
 import com.example.projetfilrouge.Model.Role;
 import com.example.projetfilrouge.Model.Utilisateur;
 import com.example.projetfilrouge.Service.EmailService;
@@ -44,6 +46,9 @@ public class ConnexionController {
     JwtUtils jwtUtils;
 
     @Autowired
+    GarageDAO garageDAO;
+
+    @Autowired
     private EmailService emailService;
 
     @PostMapping("/connexion")
@@ -77,6 +82,18 @@ public class ConnexionController {
             // Gérer le cas où le rôle n'est pas trouvé
             return new ResponseEntity<>(Map.of("error", "Le rôle n'existe pas."), HttpStatus.BAD_REQUEST);
         }
+
+        Garage garage = new Garage(); // par exemple, en utilisant l'identifiant du garage
+        // Rechercher le garage dans la base de données pour s'assurer qu'il existe
+        Garage GarageExist = garageDAO.findById(garage.getIdGarage()).orElse(null);
+
+        if (GarageExist == null) {
+            // Gérer le cas où le garage n'est pas trouvé
+            return new ResponseEntity<>(Map.of("error", "Le garage n'existe pas."), HttpStatus.BAD_REQUEST);
+        }
+
+        // Assigner le garage récupéré à l'utilisateur
+        utilisateur.setGarage(GarageExist);
 
         // Assigner le rôle récupéré à l'utilisateur
         utilisateur.setRole(roleExist);

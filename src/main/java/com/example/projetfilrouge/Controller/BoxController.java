@@ -1,11 +1,11 @@
 package com.example.projetfilrouge.Controller;
 
 
-import com.example.projetfilrouge.DAO.MarqueDAO;
+import com.example.projetfilrouge.DAO.BoxDAO;
 import com.example.projetfilrouge.DAO.TacheDAO;
-import com.example.projetfilrouge.Model.MarqueVoiture;
+import com.example.projetfilrouge.Model.Box;
 import com.example.projetfilrouge.Model.Tache;
-import com.example.projetfilrouge.Model.VoitureOccasion;
+import com.example.projetfilrouge.view.BoxView;
 import com.example.projetfilrouge.view.TacheView;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.mail.MessagingException;
@@ -16,30 +16,29 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin
-public class TacheController {
+public class BoxController {
 
     @Autowired
-    TacheDAO tacheDAO;
-    @JsonView(TacheView.class)
-    @GetMapping("/tache")
+    BoxDAO boxDAO;
+    @JsonView(BoxView.class)
+    @GetMapping("/box")
 
-    public List<Tache> liste() {
+    public List<Box> liste() {
 
-        return tacheDAO.findAll();
+        return boxDAO.findAll();
 
     }
 
-    @PostMapping("/tache")
-    public ResponseEntity<Map<String, Object>> inscription (@RequestBody Tache nouveauTache) throws MessagingException {
+    @PostMapping("/box")
+    public ResponseEntity<Map<String, Object>> inscription (@RequestBody Box nouveauBox) throws MessagingException {
 
 
-        tacheDAO.save(nouveauTache);
+        boxDAO.save(nouveauBox);
 
-        return new ResponseEntity<>(Map.of("message","Tache ajouter créé"), HttpStatus.CREATED);
+        return new ResponseEntity<>(Map.of("message","Box ajouter créé"), HttpStatus.CREATED);
 
         // Envoyez des notifications par email à tous les utilisateurs
 

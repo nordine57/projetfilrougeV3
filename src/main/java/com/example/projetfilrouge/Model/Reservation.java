@@ -27,7 +27,7 @@ public class Reservation {
 
     @Column(nullable = false, length = 100)
     @JsonView(ReservationView.class)
-    protected Date dateReservation;
+    protected LocalDate dateReservation;
 
     @Column(nullable = false, length = 100)
     @JsonView(ReservationView.class)
@@ -44,7 +44,21 @@ public class Reservation {
 
     @ManyToOne(optional = true)
     @JsonView(ReservationView.class)
+    protected Utilisateur executantreservation ;
+
+    @ManyToOne(optional = true)
+    @JsonView(ReservationView.class)
     protected Tache tache ;
+
+    @ManyToOne(optional = true)
+    @JsonView(ReservationView.class)
+    protected Box box ;
+
+    @JsonView(ReservationView.class)
+    @ManyToOne(optional = true)
+    protected Garage idgarage ;
+
+
 
 }
 

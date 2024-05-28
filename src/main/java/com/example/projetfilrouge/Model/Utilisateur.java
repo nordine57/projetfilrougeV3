@@ -38,12 +38,20 @@ public class Utilisateur {
     @ManyToOne
     protected Role role;
 
+    @ManyToOne(optional = true)
+    protected Garage garage;
+
     @JsonView({UtilisateurView.class})
     @OneToMany(mappedBy = "idutilisateur")
     private List<Voiture> voiture;
 
+
     @OneToMany(mappedBy = "reservation")
     private List<Reservation> reservations;
+
+    @JsonView(ReservationView.class)
+    @OneToMany(mappedBy = "executantreservation")
+    private List<Reservation> executantreservation;
 
 }
 
