@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Getter
@@ -31,11 +33,15 @@ public class Reservation {
 
     @Column(nullable = false, length = 100)
     @JsonView(ReservationView.class)
-    protected String heureReservation;
+    protected LocalTime heureReservation;
 
     @Column( length = 100)
     @JsonView(ReservationView.class)
     public String problemeVoiture;
+
+    @Column(nullable = true, length = 100)
+    @JsonView(ReservationView.class)
+    protected LocalTime heureFin;
 
 
     @ManyToOne(optional = true)

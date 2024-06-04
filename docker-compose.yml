@@ -1,17 +1,3 @@
-  public String generateToken(UserDetails userDetails) {
-    
-    AppUserDetails appUserDetails = (AppUserDetails) userDetails;
-    
-    return Jwts.builder()
-    .signWith(SignatureAlgorithm.HS256, "azerty")
-    .addClaims(Map.of("id", appUserDetails.utilisateur.getIdUser()))
-    .addClaims(Map.of("nom", appUserDetails.utilisateur.getNom()))
-    .addClaims(Map.of("prenom", appUserDetails.utilisateur.getPrenom()))
-    .addClaims(Map.of("role", appUserDetails.utilisateur.getRole().getNom()))
-    .setSubject(userDetails.getUsername())
-    .compact();
-    }version: '3'
-
 services:
  db:
   image: mysql:latest

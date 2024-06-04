@@ -105,6 +105,35 @@ public class ConnexionController {
 
     }
 
+    @PostMapping("/inscriptionadmin")
+    public ResponseEntity<Map<String, Object>> inscriptionAdmin (@RequestBody Utilisateur utilisateur) throws MessagingException {
+
+        utilisateur.setMotDePasse(bCryptPasswordEncoder.encode(utilisateur.getMotDePasse()));
+        // Créer une instance de Role avec l'identifiant du rôle à attribuer à l'utilisateur
+
+        Garage garage = new Garage(); // par exemple, en utilisant l'identifiant du garage
+        // Rechercher le garage dans la base de données pour s'assurer qu'il existe
+        Garage GarageExist = garageDAO.findById(garage.getIdGarage()).orElse(null);
+
+        if (GarageExist == null) {
+            // Gérer le cas où le garage n'est pas trouvé
+            return new ResponseEntity<>(Map.of("error", "Le garage n'existe pas."), HttpStatus.BAD_REQUEST);
+        }
+
+        // Assigner le garage récupéré à l'utilisateur
+        utilisateur.setGarage(GarageExist);
+
+
+        utilisateurDao.save(utilisateur);
+
+
+
+        return new ResponseEntity<>(Map.of("message","utilisateur créé"), HttpStatus.CREATED);
+
+    }
+
+
+
     @GetMapping("/profil")
     @JsonView(UtilisateurView.class)
     public ResponseEntity<Utilisateur> profil (@AuthenticationPrincipal AppUserDetails userDetails){

@@ -38,6 +38,7 @@ public class EmailService {
             sendEmail(email, subject, text);
         }
     }
+
     public List<String> getAllUserEmails() {
         // Récupère tous les utilisateurs et extrait leurs adresses e-mail
         return utilisateurDao.findAll().stream()

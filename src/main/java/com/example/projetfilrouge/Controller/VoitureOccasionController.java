@@ -86,18 +86,7 @@ public class VoitureOccasionController {
 
     }
 
-    @IsAdmin
-    @GetMapping("/voitureoccasion/{id}")
-    public ResponseEntity<VoitureOccasion> get(@PathVariable long id) {
 
-        Optional<VoitureOccasion> voitureOccasionOptional = voitureOccasionDao.findById(id);
-
-        if(voitureOccasionOptional.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(voitureOccasionOptional.get(),HttpStatus.OK);
-    }
 
 
 

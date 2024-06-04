@@ -21,7 +21,6 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@IsUser
 public class UtilisateurController {
 
     @Autowired

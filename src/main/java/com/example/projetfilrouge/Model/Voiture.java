@@ -23,7 +23,7 @@ public class Voiture {
     @ManyToOne(optional = true)
     protected Utilisateur idutilisateur;
 
-    @JsonView({VoitureView.class})
+    @JsonView({VoitureView.class, UtilisateurView.class})
     @ManyToOne(optional = true)
     protected ModeleVoiture idModeleVoiture;
 

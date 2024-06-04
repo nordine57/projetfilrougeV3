@@ -3,11 +3,13 @@ package com.example.projetfilrouge.Controller;
 
 import com.example.projetfilrouge.DAO.GarageDAO;
 import com.example.projetfilrouge.DAO.ReservationDAO;
+import com.example.projetfilrouge.DAO.TacheDAO;
 import com.example.projetfilrouge.DAO.UtilisateurDao;
 import com.example.projetfilrouge.Model.Garage;
 import com.example.projetfilrouge.Model.Reservation;
 import com.example.projetfilrouge.Model.Utilisateur;
 import com.example.projetfilrouge.Model.Voiture;
+import com.example.projetfilrouge.Service.EmailService;
 import com.example.projetfilrouge.securiter.AppUserDetails;
 import com.example.projetfilrouge.securiter.IsAdmin;
 import com.example.projetfilrouge.securiter.IsUser;
@@ -15,6 +17,7 @@ import com.example.projetfilrouge.view.ReservationView;
 import com.example.projetfilrouge.view.UtilisateurAvecCommandeView;
 import com.example.projetfilrouge.view.UtilisateurView;
 import com.fasterxml.jackson.annotation.JsonView;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +25,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -39,6 +44,12 @@ public class ReservationController {
 
     @Autowired
     UtilisateurDao utilisateurDao;
+
+    @Autowired
+    TacheDAO tacheDAO;
+
+    @Autowired
+    private EmailService emailService;
 
 
     @GetMapping("/reservation/liste")
@@ -78,8 +89,27 @@ public class ReservationController {
         // Assigner le garage récupéré à l'utilisateur
         reservation.setIdgarage(GarageExist);
 
+        // Calculer et définir la date de fin de la réservation
+        Long selectedDuree = reservation.getTache().getDureeTache();
+        LocalTime endDate = reservation.getHeureReservation().plusMinutes(selectedDuree);
+        reservation.setHeureFin(endDate);
+
 
         reservationDAO.save(reservation);
+
+        try {
+            String subject = "Reservation Norkar!";
+            String text = "Nous sommes heureux de vous annoncer que la reservation au nom ".concat(reservation.getNomReservation())
+                    .concat(" est effectuer. L'heure de reservation est ")
+                    .concat(reservation.getHeureReservation().toString()).concat(" le ")
+                    .concat(reservation.getDateReservation().toString()).concat(" jusqu'a ")
+                    .concat(reservation.getHeureFin().toString())
+                    ;
+            emailService.sendEmail(user.getUtilisateur().getEmail(),subject, text);
+        } catch (MessagingException e) {
+            // Gérez les exceptions d'envoi d'email
+            e.printStackTrace();
+        }
         return new ResponseEntity<>(Map.of("message","Reservation creer"), HttpStatus.CREATED);
     }
 

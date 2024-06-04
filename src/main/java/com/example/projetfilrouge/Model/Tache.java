@@ -8,6 +8,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.List;
 
 @Getter
@@ -27,7 +29,7 @@ public class Tache {
 
     @Column(nullable = false, length = 100)
     @JsonView({ReservationView.class, TacheView.class})
-    protected String dureeTache;
+    protected Long dureeTache;
 
     @OneToMany(mappedBy = "tache")
     private List<Reservation> reservations;
