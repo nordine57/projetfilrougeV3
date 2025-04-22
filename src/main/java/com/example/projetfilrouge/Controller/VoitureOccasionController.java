@@ -43,7 +43,6 @@ public class VoitureOccasionController {
     @Autowired
     GarageDAO garageDao;
 
-    List<List> myList = new ArrayList();
 
 
     @GetMapping("/voitureoccasion/liste")

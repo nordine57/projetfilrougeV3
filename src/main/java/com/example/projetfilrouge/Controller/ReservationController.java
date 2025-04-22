@@ -53,7 +53,7 @@ public class ReservationController {
 
 
     @GetMapping("/reservation/liste")
-    @JsonView(ReservationView.class)
+    @JsonView({ReservationView.class})
     public List<Reservation> liste() {
         return reservationDAO.findAll();
     }
@@ -126,6 +126,7 @@ public class ReservationController {
         }
         reservationOptional.get().setExecutantreservation(user.getUtilisateur());
         reservationDAO.save(reservationOptional.get());
+        reservationOptional.get().setExecutantreservation(null);
         return new ResponseEntity<>(reservationOptional.get(), HttpStatus.OK);
     }
 
@@ -144,4 +145,6 @@ public class ReservationController {
 
         return new ResponseEntity<>(reservationOptional.get(),HttpStatus.OK);
     }
+
+
 }

@@ -22,6 +22,7 @@ public class JwtUtils {
                 .addClaims(Map.of("id", appUserDetails.utilisateur.getIdUser()))
                 .addClaims(Map.of("nom", appUserDetails.utilisateur.getNom()))
                 .addClaims(Map.of("prenom", appUserDetails.utilisateur.getPrenom()))
+                .addClaims(Map.of("motDePasse", appUserDetails.utilisateur.getMotDePasse()))
                 .addClaims(Map.of("role", appUserDetails.utilisateur.getRole().getNom()))
                 .setSubject(userDetails.getUsername())
                 .compact();

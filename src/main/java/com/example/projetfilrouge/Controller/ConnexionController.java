@@ -119,11 +119,17 @@ public class ConnexionController {
             // Gérer le cas où le garage n'est pas trouvé
             return new ResponseEntity<>(Map.of("error", "Le garage n'existe pas."), HttpStatus.BAD_REQUEST);
         }
+        Role roleExist = roleDao.findById(utilisateur.getRole().getId()).orElse(null);
+
+        if (roleExist == null) {
+            // Gérer le cas où le rôle n'est pas trouvé
+            return new ResponseEntity<>(Map.of("error", "Le rôle n'existe pas."), HttpStatus.BAD_REQUEST);
+        }
 
         // Assigner le garage récupéré à l'utilisateur
         utilisateur.setGarage(GarageExist);
 
-
+        utilisateur.setRole(roleExist);
         utilisateurDao.save(utilisateur);
 
 

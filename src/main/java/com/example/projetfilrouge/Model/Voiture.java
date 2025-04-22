@@ -14,6 +14,7 @@ public class Voiture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({VoitureView.class, UtilisateurView.class})
     protected Long id;
     @JsonView({VoitureView.class, UtilisateurView.class})
     @Column( length = 100)

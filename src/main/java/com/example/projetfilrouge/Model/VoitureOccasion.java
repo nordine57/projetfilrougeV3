@@ -30,6 +30,8 @@ public class VoitureOccasion {
     protected String description;
     @Column(nullable = true ,columnDefinition = "TEXT")
     private String image;
+    @Column(nullable = true ,columnDefinition = "TEXT")
+    private String lienurl;
 
     @ManyToOne(optional = true)
     protected Garage garage ;

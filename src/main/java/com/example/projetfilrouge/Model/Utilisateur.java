@@ -35,7 +35,7 @@ public class Utilisateur {
     //@JsonView(UtilisateurView.class)
     //protected boolean administrateur;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     protected Role role;
 
     @ManyToOne(optional = true)
@@ -45,11 +45,10 @@ public class Utilisateur {
     @OneToMany(mappedBy = "idutilisateur")
     private List<Voiture> voiture;
 
-
+    @JsonView({UtilisateurView.class})
     @OneToMany(mappedBy = "reservation")
     private List<Reservation> reservations;
 
-    @JsonView(ReservationView.class)
     @OneToMany(mappedBy = "executantreservation")
     private List<Reservation> executantreservation;
 

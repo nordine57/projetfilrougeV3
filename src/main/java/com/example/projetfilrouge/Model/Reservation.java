@@ -1,6 +1,7 @@
 package com.example.projetfilrouge.Model;
 
 import com.example.projetfilrouge.view.ReservationView;
+import com.example.projetfilrouge.view.UtilisateurView;
 import com.example.projetfilrouge.view.VoitureView;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
@@ -20,19 +21,19 @@ public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView(ReservationView.class)
+    @JsonView({ReservationView.class,  UtilisateurView.class})
     protected Long idReservation;
 
     @Column(nullable = false, length = 100)
-    @JsonView(ReservationView.class)
+    @JsonView({ReservationView.class, UtilisateurView.class})
     protected String nomReservation;
 
     @Column(nullable = false, length = 100)
-    @JsonView(ReservationView.class)
+    @JsonView({ReservationView.class, UtilisateurView.class})
     protected LocalDate dateReservation;
 
     @Column(nullable = false, length = 100)
-    @JsonView(ReservationView.class)
+    @JsonView({ReservationView.class, UtilisateurView.class})
     protected LocalTime heureReservation;
 
     @Column( length = 100)
